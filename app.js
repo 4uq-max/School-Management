@@ -69,10 +69,12 @@ app.locals.title = 'School Management';
 
 const index = require("./routes/index");
 const auth = require("./routes/auth");
-const private = require("./routes/private");
+const main = require("./routes/main");
+const profile = require("./routes/profile");
 app.use("/", index);
 app.use("/", auth);
-app.use("/private", private);
+app.use("/main", main);
+app.use("/profile", profile);
 
 
 module.exports = app;

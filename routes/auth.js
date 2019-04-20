@@ -15,7 +15,7 @@ router.get("/register", (req, res) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/private",
+    successRedirect: "/main",
     failureRedirect: "/login",
     failWithError: true
   })

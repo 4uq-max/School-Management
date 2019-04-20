@@ -1,0 +1,14 @@
+<h1>esta es la private/ main <br> notice board</h1>
+<ul>
+  {{#each articles as |article|}}
+  <li>
+    {{article.title}} <br> {{article.image}} <br> {{article.description}} <br>
+  {{#if article.canUpdate}}
+    <div>
+      <a href="/main/{{article._id}}/edit" uk-icon="icon: pencil"></a>
+      <a href="/main/{{article._id}}/delete" uk-icon="icon: trash"></a>
+    </div> <br>
+    {{/if}}
+  </li>
+  {{/each}}
+</ul>

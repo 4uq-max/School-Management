@@ -6,3 +6,13 @@ exports.isAuth = (req, res, next) => {
     res.redirect("/login");
   }
 };
+
+exports.checkRoles = (role) => {
+  return function(req, res, next) {
+    if (req.isAuthenticated() && req.user.role === role) {
+      return next();
+    } else {
+      res.redirect("/main");
+    }
+  };
+}

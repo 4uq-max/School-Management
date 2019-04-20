@@ -1,0 +1,27 @@
+
+  <form 
+{{#if _id}}
+  action="/main/{{_id}}/edit" 
+{{else}}
+  action="/main/newNotice"
+{{/if}} method="POST">
+  <div>
+    <label for="">
+      Title:
+      <input class="uk-input uk-form-width-medium uk-form-small" type="text" name="title" value="{{title}}">
+    </label>
+  </div><br>
+  <div>
+    <label for="">
+      Image:
+      <input class="uk-input uk-form-width-medium uk-form-small" type="text" name="image" value="{{image}}">
+    </label>
+  </div><br>
+  <div>
+    <label for="">
+      Description:
+      <textarea class="uk-textarea" name="description" id="" cols="30" rows="3">{{description}}</textarea>
+    </label>
+  </div><br>
+  <button class="uk-button uk-button-default" type="submit">Submit</button>
+</form>

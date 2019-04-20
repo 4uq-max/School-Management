@@ -15,14 +15,18 @@
 <body>
 
   <nav class="uk-navbar-container" uk-navbar>
-    <!--<div class="uk-navbar-left">
-
+    <div class="uk-navbar-left">
       <ul class="uk-navbar-nav">
-        <li><a href="/">Ironbnb</a></li>
-        <li><a href="/properties">Properties</a></li>
+        {{#if canCreate}}
+        <li><a href="/main/newNotice">New notice</a></li>
+        <li><a href="/main/newUser">New user</a></li>
+        {{/if}}
       </ul>
+    </div>
 
-    </div>-->
+    <div class="uk-navbar-center">
+      <a class="uk-navbar-item uk-logo" href="/main"><img src="https://ya-webdesign.com/images/apple-fruit-icon-png-8.png" alt="logo" width="30vw"> &nbsp School Management</a>
+    </div>
 
     <div class="uk-navbar-right">
       <ul class="uk-navbar-nav">
