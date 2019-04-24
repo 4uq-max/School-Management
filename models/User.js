@@ -25,6 +25,10 @@ const userSchema = new Schema(
       type: String,
       enum : ['MANAGER', 'TEACHER', 'PARENT', 'STUDENT'],
       default : 'STUDENT'
+    },
+    tutor: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
     }
   },
   { timestamps: true }
