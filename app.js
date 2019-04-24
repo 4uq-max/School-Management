@@ -71,10 +71,14 @@ const index = require("./routes/index");
 const auth = require("./routes/auth");
 const main = require("./routes/main");
 const profile = require("./routes/profile");
+const manager = require("./routes/manager");
+const teacher = require("./routes/teacher");
 app.use("/", index);
 app.use("/", auth);
 app.use("/main", main);
 app.use("/profile", profile);
+app.use("/manager", manager);
+app.use("/teacher", teacher);
 
 
 module.exports = app;

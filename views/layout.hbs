@@ -17,9 +17,16 @@
   <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
       <ul class="uk-navbar-nav">
-        {{#if canCreate}}
+        {{#if canCreateArticle}}
         <li><a href="/main/newNotice">New notice</a></li>
-        <li><a href="/main/newUser">New user</a></li>
+        <li><a href="/manager">Comunity</a></li>
+        {{/if}}
+        {{#if canCreateUser}}
+        <li><a href="/manager/newUser">New user</a></li>
+        <li><a href="/manager/newGroup">New group</a></li>
+        {{/if}}
+        {{#if canRate}}
+        <li><a href="/teacher">My groups</a></li>
         {{/if}}
       </ul>
     </div>

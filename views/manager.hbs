@@ -1,0 +1,15 @@
+<h1>vista del manager</h1>
+<h2>grupos, gráficas, etc</h2>
+<ul>
+  {{#each users as |usr|}}
+  <li>
+    {{usr.name}} <br> {{usr.role}} <br> {{usr.image}} <br> {{usr.email}} <br>
+  {{#if usr.canUpdate}}
+    <div>
+      <a href="/manager/{{usr._id}}/edit" uk-icon="icon: pencil"></a>
+      <a href="/manager/{{usr._id}}/delete" uk-icon="icon: trash"></a>
+    </div> <br>
+    {{/if}}
+  </li><br>
+  {{/each}}
+</ul>

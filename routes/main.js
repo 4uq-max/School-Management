@@ -6,7 +6,8 @@ const User = require("../models/User");
 
 router.get("/", helpers.isAuth, (req, res) => {
   const { user } = req;
-  let canCreate;
+  let canCreateArticle;
+  let canRate;
   Article.find()
     .then(articles => {
       articles = articles.map(article => {
@@ -15,11 +16,16 @@ router.get("/", helpers.isAuth, (req, res) => {
           : article;
       });
       if (String(user.role) === String('MANAGER')) {
-        canCreate = true;
+        canCreateArticle = true;
       } else {
-        canCreate = false;
+        canCreateArticle = false;
       }
-      res.render("main", { user, articles, canCreate });
+      if (String(user.role) === String('TEACHER')) {
+        canRate = true;
+      } else {
+        canRate = false;
+      }
+      res.render("main", { user, articles, canCreateArticle, canRate });
     });
 });
 
@@ -28,20 +34,8 @@ router.get("/newNotice", helpers.isAuth, helpers.checkRoles("MANAGER"), (req, re
   res.render("article-form", { user });
 });
 
-router.get("/newUser", helpers.isAuth, helpers.checkRoles("MANAGER"), (req, res) => {
-  const { user } = req;
-  res.render("user-form", { user });
-});
-
 router.post("/newNotice", (req, res) => {
   Article.create(req.body)
-    .then(() => {
-      res.redirect("/main");
-    });
-});
-
-router.post("/newUser", (req, res) => {
-  User.create(req.body)
     .then(() => {
       res.redirect("/main");
     });
