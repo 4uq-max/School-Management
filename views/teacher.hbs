@@ -1,20 +1,39 @@
 <h1>vista de teacher</h1>
 <form action="Calificaciones" method="POST">Qualification
     <div>
-        <label for="">Materia
+        <label for="">Student`s Name
             <input type="text" name="name">
         </label>
     </div>
     <div>
-        <label for="">Calificacion
+        <label for="">
+            Materia:
+            <select name="materia" id="">
+                <option value="" selected disabled>Select the Subject</option>
+                <option value="spanish">Spanish</option>
+                <option value="math">Math</option>
+                <option value="history">History</option>
+                <option value="philosophy">Philosophy</option>
+                <option value="science">Science</option>
+                <option value="technology">Technology</option>
+                <option value="english">English</option>
+                <option value="physical education">Physical Education</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label for="">Qualification
             <input type="number" name="">
         </label>
     </div>
     <div>
-        <label for="">Asistencia
+        <label for="">Assistance
             <input type="checkbox" name="YES">
         </label>
 
     </div>
-    <button type="Agregar">Agregar</button>
+    <div>
+
+    </div>
+    <button type="Agregar">Submit</button>
 </form>
