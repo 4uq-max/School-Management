@@ -5,7 +5,8 @@ const articleSchema = new Schema(
   {
     title: String,
     description: String,
-    image: String
+    picPath: String,
+    picName: String,
   },
   { timestamps: true }
 );

@@ -1,27 +1,5 @@
-<h1>esta es la private/ main <br> notice board</h1>
-<ul>
-  {{#each articles as |article|}}
-  <li>
-    {{article.title}} <br> {{article.image}} <br> {{article.description}} <br>
-  {{#if article.canUpdate}}
-    <div>
-      <a href="/main/{{article._id}}/edit" uk-icon="icon: pencil"></a>
-      <a href="/main/{{article._id}}/delete" uk-icon="icon: trash"></a>
-    </div> <br>
-    {{/if}}
-  </li>
+<div class="uk-flex uk-flex-row uk-flex-around uk-margin-medium">
+  {{#each articles}}
+  {{> articleCard this}}
   {{/each}}
-</ul>
-
-
-<!--<div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
-    <div class="uk-card-media-left uk-cover-container">
-        <img  width="400" height="400" class="uk-position-center" src="https://ya-webdesign.com/images/school-supplies-background-png-8.png" alt="utilities">
-    </div>
-    <div>
-        <div class="uk-card-body">
-            <h3 class="uk-card-title">Media Left</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-        </div>
-    </div>
-</div>-->
+</div>
