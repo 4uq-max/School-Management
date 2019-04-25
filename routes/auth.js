@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const passport = require("passport");
-//const mailer = require("../helpers/mailer");
+const mailer = require("../helpers/mailer");
 
 router.get("/login", (req, res) => {
   res.render("auth-form", { action: "Login" });
@@ -27,13 +27,13 @@ router.post("/register", (req, res) => {
   User.register(req.body, password)
     .then(user => {
       const { email } = user;
-      /*const options = {
+      const options = {
         email,
         subject: "Verifica tu mail",
         message: "Bienvenido morro, por fa verifica tu mail"
       };
 
-      mailer.send(options);*/
+      mailer.send(options);
       res.redirect("/login");
     })
     .catch(err => {
