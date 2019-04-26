@@ -1,15 +1,17 @@
 <div class="uk-card uk-card-default">
-    <div class="uk-card-media-top">
-        <img src="{{this.picPath}}" alt="img" width="375">
+  <div class="uk-card-media-top">
+    <img src="{{this.picPath}}" alt="img" width="375">
+  </div>
+  <div class="uk-card-body uk-height-small uk-padding-small">
+    <div class="uk-flex-inline">
+      <h4 class="uk-card-title">{{this.title}}</h4>
+      <div class="uk-align-right">
+        {{#if this.canUpdate}}
+          <a href="/main/{{this._id}}/edit" uk-icon="icon: pencil"></a>
+          <a href="/main/{{this._id}}/delete" uk-icon="icon: trash"></a>
+        {{/if}}
+      </div>
     </div>
-    <div class="uk-card-body uk-height-small">
-        <h4 class="uk-card-title">{{this.title}}</h4>
-        <p>{{this.description}}</p>
-          {{#if this.canUpdate}}
-    <div class="uk-card-footer">
-      <a href="/main/{{this._id}}/edit" uk-icon="icon: pencil"></a>
-      <a href="/main/{{this._id}}/delete" uk-icon="icon: trash"></a>
-    </div> <br>
-    {{/if}}
-    </div>
+    <p>{{this.description}}</p>
+  </div>
 </div>

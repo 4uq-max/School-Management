@@ -14,6 +14,50 @@
 
 <body>
 
+  <div id="new-user" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+      <h2 class="uk-modal-title">Create user</h2>
+      <form {{#if _id}} action="/manager/{{_id}}/edit" {{else}} action="/manager/newUser" {{/if}} method="POST">
+        <div class="uk-margin">
+          <label for="">
+            Full name:
+            <input class="uk-input uk-form-width-medium uk-form-small" type="text" name="name" value="{{name}}">
+          </label>
+        </div><br>
+        <div class="uk-margin">
+          <label for="">
+            e-mail:
+            <input class="uk-input uk-form-width-medium uk-form-small" type="email" name="email" value="{{email}}">
+          </label>
+        </div>
+        <div class="uk-margin">
+          <select class="uk-select">
+            <option value="STUDENT">STUDENT</option>
+            <option value="TEACHER">TEACHER</option>
+            <option value="PARENT">PARENT</option>
+            <option value="MANAGER">MANAGER</option>
+          </select>
+        </div>
+        <div class="uk-margin">
+          <label for="">
+            Image:
+            <input class="uk-input uk-form-width-medium uk-form-small" type="text" name="image" value="{{image}}">
+          </label>
+        </div>
+        <div class="uk-margin">
+          <label for="">
+            Description:
+            <textarea class="uk-textarea" name="description" id="" cols="30" rows="3">{{description}}</textarea>
+          </label>
+        </div>
+        <p class="uk-text-right">
+          <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+          <button class="uk-button uk-button-primary" type="submit">Save</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
   <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
       <ul class="uk-navbar-nav">
@@ -22,7 +66,7 @@
         <li><a href="/manager">Comunity</a></li>
         {{/if}}
         {{#if canCreateUser}}
-        <li><a href="/manager/newUser">New user</a></li>
+        <li><a href="" uk-toggle="target: #new-user">New user</a></li>
         <li><a href="/manager/newGroup">New group</a></li>
         {{/if}}
         {{#if canRate}}
@@ -32,7 +76,8 @@
     </div>
 
     <div class="uk-navbar-center">
-      <a class="uk-navbar-item uk-logo" href="/main"><img src="../images/icon.png" alt="logo" width="30vw"> &nbsp School Management</a>
+      <a class="uk-navbar-item uk-logo" href="/main"><img src="../images/icon.png" alt="logo" width="30vw"> &nbsp School
+        Management</a>
     </div>
 
     <div class="uk-navbar-right">

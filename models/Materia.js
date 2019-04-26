@@ -10,13 +10,34 @@ const materiaSchema = new Schema(
         "Spanish",
         "Math",
         "History",
+        "Geography",
         "Philosophy",
-        "Science",
+        "Biology",
+        "Phisics",
+        "Chemistry",
         "Technology",
+        "Arts",
         "English",
         "Physical Education"
-      ],
-      required: true
+      ]
+    },
+    teacher: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    },
+    note: {
+      type: Number,
+      period: {
+        type: String,
+        enum: [
+          "agust-september",
+          "october-november",
+          "december-january",
+          "february-march",
+          "april-may",
+          "june-july"
+        ]
+      }
     }
   },
   { timestamps: true }
