@@ -4,7 +4,7 @@
   action="/main/{{_id}}/edit" 
 {{else}}
   action="/main/newNotice"
-{{/if}} method="POST">
+{{/if}} method="POST" enctype="multipart/form-data">
   <div>
     <label for="">
       Title:
@@ -13,15 +13,13 @@
   </div><br>
   <div>
     <label for="">
-      Image:
-      <input class="uk-input uk-form-width-medium uk-form-small" type="text" name="image" value="{{image}}">
-    </label>
-  </div><br>
-  <div>
-    <label for="">
       Description:
       <textarea class="uk-textarea" name="description" id="" cols="30" rows="3">{{description}}</textarea>
     </label>
   </div><br>
+  <div class="js-upload" uk-form-custom>
+    <input type="file" name="postPic">
+    <button class="uk-button uk-button-default" type="button" tabindex="-1">Select image</button>
+  </div><br><br>
   <button class="uk-button uk-button-default" type="submit">Submit</button>
 </form>

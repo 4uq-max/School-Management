@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const helpers = require("../helpers/function");
+const upload = require("../helpers/multer.js");
+const uploadPostPicture = upload.uploadPostPicture;
 const Article = require("../models/Article");
 const User = require("../models/User");
 
@@ -34,12 +36,17 @@ router.get("/newNotice", helpers.isAuth, helpers.checkRoles("MANAGER"), (req, re
   res.render("article-form", { user });
 });
 
-router.post("/newNotice", (req, res) => {
-  Article.create(req.body)
-    .then(() => {
-      res.redirect("/main");
-    });
+router.post("/newNotice", uploadPostPicture.single("postPic"), (req, res) => {
+  const title = req.body.title
+  const picPath = req.file.url;
+  const description = req.body.description;
+  const picName = req.file.originalname;
+
+  Article.create({ title, picPath, description, picName }).then(() => {
+    res.redirect("/main");
+  });
 });
+
 
 router.get('/:id/edit', (req, res) => {
   let { id } = req.params;
@@ -49,15 +56,14 @@ router.get('/:id/edit', (req, res) => {
   });
 });
 
-router.post('/:id/edit', (req, res) => {
-  let { id } = req.params;
-  Article.findByIdAndUpdate(id, {$set: {...req.body}})
-  .then(() => {
-    res.redirect('/main');
-  })
-  .catch(err => {
-    console.log(err);
-  })
+router.post("/:id/edit", /*uploader.array("images")*/ (req, res) => {
+  const { id } = req.params;
+  const { ...article } = req.body;
+  Article.findByIdAndUpdate(id, { $set: { ...article } }).then(
+    () => {
+      res.redirect("/main");
+    }
+  );
 });
 
 router.get('/:id/delete', (req, res) => {
