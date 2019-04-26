@@ -23,12 +23,16 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum : ['MANAGER', 'TEACHER', 'PARENT', 'STUDENT'],
-      default : 'STUDENT'
+      enum: ["MANAGER", "TEACHER", "PARENT", "STUDENT"],
+      default: "STUDENT"
     },
     tutor: {
       type: Schema.Types.ObjectId,
       ref: "User"
+    },
+    materia: {
+      type: Schema.Types.ObjectId,
+      ref: "Materia"
     }
   },
   { timestamps: true }

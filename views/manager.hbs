@@ -1,9 +1,9 @@
 <h1>vista del manager</h1>
 <h2>grupos, gráficas, etc</h2>
 <ul>
-  {{#each users as |usr|}}
+  {{#each groups as |usr|}}
   <li>
-    {{usr.name}} <br> {{usr.role}} <br> {{usr.image}} <br> {{usr.email}} <br>
+    {{usr.title}} <br> {{usr.alumni}} <br>
   {{#if usr.canUpdate}}
     <div>
       <a href="/manager/{{usr._id}}/edit" uk-icon="icon: pencil"></a>
