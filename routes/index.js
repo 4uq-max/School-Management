@@ -1,11 +1,10 @@
-
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
 const mailer = require("../helpers/mailer");
 
 /* GET home page */
-router.get('/', (req, res, next) => {
-  res.render('index');
+router.get("/", (req, res, next) => {
+  res.render("index");
 });
 
 /* Mail */
@@ -16,7 +15,6 @@ router.get("/send-mail", (req, res) => {
 router.post("/send-mail", (req, res) => {
   let options = req.body;
   options.filename = "verify";
-  console.log('que es',options)
   mailer
     .send(options)
     .then(() => {
