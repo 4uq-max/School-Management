@@ -23,16 +23,18 @@ router.post(
 
 router.post("/register", (req, res) => {
   const { password } = req.body;
-
   User.register(req.body, password)
     .then(user => {
       const { email } = user;
       const options = {
         email,
-        subject: "Verifica tu mail",
-        message: "Bienvenido morro, por fa verifica tu mail"
+        subject: "Welcome to the School Management",
+        message:
+          "Welcome, please confirm your mail link: http://localhost:3000/login",
+        /*file: "verify"*/
       };
-
+      //mailer.generateHTML(options);
+      options.filename ="verify";
       mailer.send(options);
       res.redirect("/login");
     })

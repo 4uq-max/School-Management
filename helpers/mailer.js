@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
+const hbs = require("hbs");
+const fs = require("fs");
 
-const transport = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: "SendGrid",
   auth: {
     user: process.env.SEND_USER,
@@ -8,21 +10,29 @@ const transport = nodemailer.createTransport({
   }
 });
 
-transport.verify(function(error, success) {
+const generateHTML = (options) => {
+  const html = hbs.compile(
+    fs.readFileSync((__dirname, `./views/mail/verify.hbs`), "utf-8")
+  );
+  return html(options);
+};
+
+exports.send = options => {
+  const html = generateHTML(options.filename, options)
+  const mailOptions = {
+    from: " Direccion :<noreply@scool-management.com>",
+    to: options.email,
+    subject: options.subject,
+    text: options.message,
+    html
+  };
+  return transporter.sendMail(mailOptions);
+};
+
+transporter.verify(function(error, success) {
   if (error) {
     console.log(error);
   } else {
     console.log("Server is ready to take our messages");
   }
 });
-
-exports.send = options => {
-  const mailOptions = {
-    subject: options.subject,
-    to: options.email,
-    from: `${options.subject} <noreply@scool-management.com>`,
-    text: options.message,
-    html: `<h1>${options.message}</h1>`
-  };
-  return transport.sendMail(mailOptions);
-};

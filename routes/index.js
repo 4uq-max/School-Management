@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router  = express.Router();
 const mailer = require("../helpers/mailer");
@@ -15,6 +16,7 @@ router.get("/send-mail", (req, res) => {
 router.post("/send-mail", (req, res) => {
   let options = req.body;
   options.filename = "verify";
+  console.log('que es',options)
   mailer
     .send(options)
     .then(() => {
