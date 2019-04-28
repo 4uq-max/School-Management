@@ -4,7 +4,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new Schema(
   {
-    username: String,
     name: {
       type: String,
       required: true
@@ -27,16 +26,40 @@ const userSchema = new Schema(
       default: "STUDENT"
     },
     tutor: {
-      type: Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "User"
     },
-    materia: {
-      type: Schema.Types.ObjectId,
-      ref: "Materia"
+    group: {
+      type: Schema.ObjectId,
+      ref: "Group"
     }
   },
   { timestamps: true }
 );
+
+userSchema.statics.getByGroupTag = function(tag) {
+  return this.aggregate([
+    {
+      $match: {
+        role: "STUDENT"
+      }
+    },
+    {
+      $lookup: {
+        from: "groups",
+        localField: "group",
+        foreignField: "_id",
+        as: "group"
+      }
+    },
+    { $unwind: "$group" },
+    {
+      $match: {
+        "group.tag": tag
+      }
+    }
+  ]);
+};
 
 userSchema.plugin(passportLocalMongoose, {
   usernameField: "email",

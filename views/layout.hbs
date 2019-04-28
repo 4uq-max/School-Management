@@ -14,45 +14,107 @@
 
 <body>
 
-  <div id="new-user" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-      <h2 class="uk-modal-title">Create user</h2>
-      <form {{#if _id}} action="/manager/{{_id}}/edit" {{else}} action="/manager/newUser" {{/if}} method="POST">
-        <div class="uk-margin">
-          <label for="">
-            Full name:
-            <input class="uk-input uk-form-width-medium uk-form-small" type="text" name="name" value="{{name}}">
-          </label>
-        </div><br>
-        <div class="uk-margin">
-          <label for="">
-            e-mail:
-            <input class="uk-input uk-form-width-medium uk-form-small" type="email" name="email" value="{{email}}">
-          </label>
-        </div>
-        <div class="uk-margin">
-          <select class="uk-select">
-            <option value="STUDENT">STUDENT</option>
-            <option value="TEACHER">TEACHER</option>
-            <option value="PARENT">PARENT</option>
-            <option value="MANAGER">MANAGER</option>
-          </select>
-        </div>
-        <div class="uk-margin">
-          <label for="">
-            Image:
-            <input class="uk-input uk-form-width-medium uk-form-small" type="text" name="image" value="{{image}}">
-          </label>
-        </div>
-        <div class="uk-margin">
-          <label for="">
-            Description:
-            <textarea class="uk-textarea" name="description" id="" cols="30" rows="3">{{description}}</textarea>
-          </label>
+  <div id="new-notice" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-padding-large uk-background-muted" id="modal-styles">
+      <button class="uk-modal-close-default" type="button" uk-close></button>
+      <h4 class="uk-modal-title uk-text-center">CREATE NOTICE</h4>
+      <form {{#if _id}} action="/main/{{_id}}/edit" {{else}} action="/main/newNotice" {{/if}} method="POST"
+        enctype="multipart/form-data">
+        <div class="uk-text-center">
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon" uk-icon="icon: tag"></span>
+              <input name="titlee" class="uk-input uk-form-width-large" type="text"
+                placeholder="Enter a title for this notice" value="{{titlee}}">
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <textarea class="uk-textarea uk-form-width-large" name="description" id="" cols="30" rows="3"
+                placeholder="Description">{{description}}</textarea>
+            </div>
+          </div>
+          <div class="js-upload" uk-form-custom>
+            <input type="file" name="postPic">
+            <button class="uk-button uk-button-default" type="button" tabindex="-1">Select image</button>
+          </div>
         </div>
         <p class="uk-text-right">
-          <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-          <button class="uk-button uk-button-primary" type="submit">Save</button>
+          <button class="uk-button" id="button" type="submit">Save</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div id="new-user" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-padding-large uk-background-muted" id="modal-styles">
+      <button class="uk-modal-close-default" type="button" uk-close></button>
+      <h4 class="uk-modal-title uk-text-center">CREATE USER</h4>
+      <form {{#if _id}} action="/manager/{{_id}}/editU" {{else}} action="/manager/newUser" {{/if}} method="POST">
+        <div class="uk-text-center">
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon" uk-icon="icon: user"></span>
+              <input name="name" class="uk-input uk-form-width-large" type="text" placeholder="User's full name"
+                value="{{name}}">
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon" uk-icon="icon: mail"></span>
+              <input name="email" class="uk-input uk-form-width-large" type="email" placeholder="example@example.com"
+                value="{{email}}">
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon" uk-icon="icon: lock"></span>
+              <input name="password" class="uk-input uk-form-width-large" type="password"
+                placeholder="Enter a temporary password" value="{{password}}">
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <select class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Select the Role</option>
+                <option value="STUDENT">STUDENT</option>
+                <option value="TEACHER">TEACHER</option>
+                <option value="PARENT">PARENT</option>
+                <option value="MANAGER">MANAGER</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="uk-text-right">
+          <button class="uk-button" id="button" type="submit">Save</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div id="new-group" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-padding-large uk-background-muted" id="modal-styles">
+      <button class="uk-modal-close-default" type="button" uk-close></button>
+      <h4 class="uk-modal-title uk-text-center">CREATE GROUP</h4>
+      <form {{#if _id}} action="/manager/{{_id}}/editG" {{else}} action="/manager/newGroup" {{/if}} method="POST">
+        <div class="uk-text-center">
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon" uk-icon="icon: tag"></span>
+              <input name="tag" class="uk-input uk-form-width-large" type="text"
+                placeholder="Enter a name for this group" value="{{tag}}">
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon" uk-icon="icon: users"></span>
+              <input name="alumni" class="uk-input uk-form-width-large" type="text" placeholder="Add students"
+                value="{{alumni}}">
+            </div>
+          </div>
+        </div>
+        <p class="uk-text-right">
+          <button class="uk-button" id="button" type="submit">Save</button>
         </p>
       </form>
     </div>
@@ -62,12 +124,12 @@
     <div class="uk-navbar-left">
       <ul class="uk-navbar-nav">
         {{#if canCreateArticle}}
-        <li><a href="/main/newNotice">New notice</a></li>
+        <li><a href="" uk-toggle="target: #new-notice">New notice</a></li>
         <li><a href="/manager">Comunity</a></li>
         {{/if}}
         {{#if canCreateUser}}
         <li><a href="" uk-toggle="target: #new-user">New user</a></li>
-        <li><a href="/manager/newGroup">New group</a></li>
+        <li><a href="" uk-toggle="target: #new-group">New group</a></li>
         {{/if}}
         {{#if canRate}}
         <li><a href="/teacher">My groups</a></li>
@@ -104,6 +166,9 @@
   </footer>
 
   <!-- UIkit JS -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+  <script src="/javascripts/graph.js" charset="utf-8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit-icons.min.js"></script>
   <script src="/javascripts/script.js"></script>

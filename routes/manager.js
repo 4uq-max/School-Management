@@ -6,21 +6,67 @@ const helpers = require("../helpers/function");
 
 router.get("/", helpers.isAuth, helpers.checkRoles("MANAGER"), (req, res) => {
   const { user } = req;
-  let canCreateUser;
   Group.find().then(groups => {
-    groups = groups.map(group => {
-      return String(user.role) === String("MANAGER")
-        ? { ...group._doc, canUpdate: true }
-        : group;
-    });
-    if (String(user.role) === String("MANAGER")) {
-      canCreateUser = true;
-    } else {
-      canCreateUser = false;
-    }
-    res.render("manager", { user, groups, canCreateUser });
+    res.render("manager", { user, groups });
   });
 });
+
+router.get(
+  "/PRIMERO",
+  helpers.isAuth,
+  helpers.checkRoles("MANAGER"),
+  (req, res) => {
+    const { user } = req;
+    let alumni = [];
+    User.getByGroupTag("PRIMERO").then(usrs => {
+      usrs = usrs.map(usr => {
+        alumni.push(usr);
+        return String(user.role) === String("MANAGER")
+          ? { ...usr._doc, canUpdate: true }
+          : usr;
+      });
+      res.render("group", { user, alumni });
+    });
+  }
+);
+
+router.get(
+  "/SEGUNDO",
+  helpers.isAuth,
+  helpers.checkRoles("MANAGER"),
+  (req, res) => {
+    const { user } = req;
+    let alumni = [];
+    User.getByGroupTag("SEGUNDO").then(usrs => {
+      usrs = usrs.map(usr => {
+        alumni.push(usr);
+        return String(user.role) === String("MANAGER")
+          ? { ...usr._doc, canUpdate: true }
+          : usr;
+      });
+      res.render("group", { user, alumni });
+    });
+  }
+);
+
+router.get(
+  "/TERCERO",
+  helpers.isAuth,
+  helpers.checkRoles("MANAGER"),
+  (req, res) => {
+    const { user } = req;
+    let alumni = [];
+    User.getByGroupTag("TERCERO").then(usrs => {
+      usrs = usrs.map(usr => {
+        alumni.push(usr);
+        return String(user.role) === String("MANAGER")
+          ? { ...usr._doc, canUpdate: true }
+          : usr;
+      });
+      res.render("group", { user, alumni });
+    });
+  }
+);
 
 router.post(
   "/newUser",
@@ -33,46 +79,37 @@ router.post(
   }
 );
 
-router.get("/:id/edit", (req, res) => {
+router.get("/:id/editU", (req, res) => {
   let { id } = req.params;
   User.findById(id).then(user => {
     res.render("user-form", user);
   });
 });
 
-router.post("/:id/edit", (req, res) => {
+router.post("/:id/editU", (req, res) => {
   let { id } = req.params;
-  User.findByIdAndUpdate(id, { $set: { ...req.body } })
-    .then(() => {
-      res.redirect("/manager");
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  User.findByIdAndUpdate(id, { $set: { ...req.body } }).then(() => {
+    res.redirect("/manager");
+  });
 });
 
-router.get("/:id/delete", (req, res) => {
+router.get("/:id/deleteU", (req, res) => {
   let { id } = req.params;
   User.findByIdAndDelete(id).then(() => {
     res.redirect("/manager");
   });
 });
 
-router.get(
+router.post(
   "/newGroup",
   helpers.isAuth,
   helpers.checkRoles("MANAGER"),
   (req, res) => {
-    const { user } = req;
-    res.render("group-form", { user });
+    Group.create(req.body).then(() => {
+      res.redirect("/manager");
+    });
   }
 );
-
-router.post("/newGroup", (req, res) => {
-  Group.create(req.body).then(() => {
-    res.redirect("/manager");
-  });
-});
 
 router.get("/:id/editG", (req, res) => {
   let { id } = req.params;
@@ -83,13 +120,9 @@ router.get("/:id/editG", (req, res) => {
 
 router.post("/:id/editG", (req, res) => {
   let { id } = req.params;
-  Group.findByIdAndUpdate(id, { $set: { ...req.body } })
-    .then(() => {
-      res.redirect("/manager");
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  Group.findByIdAndUpdate(id, { $set: { ...req.body } }).then(() => {
+    res.redirect("/manager");
+  });
 });
 
 router.get("/:id/deleteG", (req, res) => {

@@ -1,15 +1,24 @@
-<h1>vista del manager</h1>
-<h2>grupos, gráficas, etc</h2>
-<ul>
-  {{#each groups as |usr|}}
-  <li>
-    {{usr.title}} <br> {{usr.alumni}} <br>
-  {{#if usr.canUpdate}}
-    <div>
-      <a href="/manager/{{usr._id}}/edit" uk-icon="icon: pencil"></a>
-      <a href="/manager/{{usr._id}}/delete" uk-icon="icon: trash"></a>
-    </div> <br>
-    {{/if}}
-  </li><br>
-  {{/each}}
-</ul>
+<h1>vista de manager</h1>
+{{#each groups}}
+{{> groupCard this}}
+
+<div class="col">
+  <div>
+    <h2>Filters</h2>
+    From: <input id="initialDate" type="date">
+    To: <input id="finalDate" type="date"><br><br>
+    <select class="form-control" id="currency" onchange="graph(event);">
+      <option value="USD">US Dollar</option>
+      <option value="EUR">EURO</option>
+    </select>
+    <button id="submitDate">Submit</button>
+  </div>
+  <div>
+    <h2>Values</h2>
+    <p id="max">Max: <span id="max-price"></span></p>
+    <p id="min">Min: <span id="min-price"></span></p>
+  </div>
+</div>
+<canvas class="uk-margin" id="chart" height="350"></canvas>
+
+{{/each}}

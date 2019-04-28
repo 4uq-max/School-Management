@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const articleSchema = new Schema(
   {
-    title: String,
+    titlee: String,
     description: String,
     picPath: String,
-    picName: String,
+    picName: String
   },
   { timestamps: true }
 );

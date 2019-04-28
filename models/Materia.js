@@ -7,27 +7,35 @@ const materiaSchema = new Schema(
     materia: {
       type: String,
       enum: [
-        "Spanish",
-        "Math",
+        "Spanish 1",
+        "Spanish 2",
+        "Spanish 3",
+        "Maths 1",
+        "Maths 2",
+        "Maths 3",
         "History",
         "Geography",
         "Philosophy",
         "Biology",
         "Phisics",
         "Chemistry",
-        "Technology",
-        "Arts",
-        "English",
-        "Physical Education"
+        "Technology 1",
+        "Technology 2",
+        "Technology 3",
+        "Arts 1",
+        "Arts 2",
+        "Arts 3",
+        "English 1",
+        "English 2",
+        "English 3"
       ]
     },
     teacher: {
-      type: Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "User"
     },
-    note: {
-      type: Number,
-      period: {
+    period: [
+      {
         type: String,
         enum: [
           "agust-september",
@@ -36,9 +44,12 @@ const materiaSchema = new Schema(
           "february-march",
           "april-may",
           "june-july"
-        ]
+        ],
+        note: {
+          type: Number
+        }
       }
-    }
+    ]
   },
   { timestamps: true }
 );

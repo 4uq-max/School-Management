@@ -3,12 +3,14 @@ const Schema = mongoose.Schema;
 
 const groupSchema = new Schema(
   {
-    title: String,
+    tag: String,
     graph: String,
-    alumni: [{
-      type: Schema.Types.ObjectId,
-      ref: "User"
-    }]
+    materia: [
+      {
+        type: Schema.ObjectId,
+        ref: "Materia"
+      }
+    ]
   },
   { timestamps: true }
 );

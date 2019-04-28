@@ -6,6 +6,24 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
-  color: #00B7FF; }
+  color: #00b7ff; }
+
+#modal-styles {
+  border-radius: 15px; }
+
+#button {
+  background-color: lightcoral;
+  color: white; }
+
+#coral {
+  color: lightcoral; }
+
+.col,
+#chart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80vw;
+  padding: 15px 150px; }
 
 /*# sourceMappingURL=style.css.map */
