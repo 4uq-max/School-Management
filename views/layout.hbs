@@ -17,9 +17,11 @@
   <div id="new-notice" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-padding-large uk-background-muted" id="modal-styles">
       <button class="uk-modal-close-default" type="button" uk-close></button>
-      <h4 class="uk-modal-title uk-text-center">CREATE NOTICE</h4>
       <form {{#if _id}} action="/main/{{_id}}/edit" {{else}} action="/main/newNotice" {{/if}} method="POST"
         enctype="multipart/form-data">
+        {{#if _id}} <h4 class="uk-modal-title uk-text-center">UPDATE NOTICE</h4>
+        {{else}} <h4 class="uk-modal-title uk-text-center">CREATE NOTICE {{_id}}</h4>
+        {{/if}}
         <div class="uk-text-center">
           <div class="uk-margin">
             <div class="uk-inline">
@@ -57,6 +59,16 @@
               <span class="uk-form-icon" uk-icon="icon: user"></span>
               <input name="name" class="uk-input uk-form-width-large" type="text" placeholder="User's full name"
                 value="{{name}}">
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <select name="group" class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Select the group</option>
+                <option type="ObjectId" value="5cc495881c9d44000092fac1">PRIMERO</option>
+                <option type="ObjectId" value="5cc499b31c9d44000092fac3">SEGUNDO</option>
+                <option type="ObjectId" value="5cc49a251c9d44000092fac4">TERCERO</option>
+              </select>
             </div>
           </div>
           <div class="uk-margin">
@@ -107,9 +119,72 @@
           </div>
           <div class="uk-margin">
             <div class="uk-inline">
-              <span class="uk-form-icon" uk-icon="icon: users"></span>
-              <input name="alumni" class="uk-input uk-form-width-large" type="text" placeholder="Add students"
-                value="{{alumni}}">
+              <select name="materia" class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Add the 1st subject</option>
+                <option type="ObjectId" value="5cc48a811c9d4400001af09b">Spanish 1</option>
+                <option type="ObjectId" value="5cc5ec8d1c9d440000b75156">Spanish 2</option>
+                <option type="ObjectId" value="5cc5ed8f1c9d440000b75157">Spanish 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <select name="materia" class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Add the 2nd subject</option>
+                <option type="ObjectId" value="5cc5ef401c9d440000b75159">Maths 1</option>
+                <option type="ObjectId" value="5cc5eff01c9d440000b7515a">Maths 2</option>
+                <option type="ObjectId" value="5cc5f0a61c9d440000b7515b">Maths 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <select name="materia" class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Add the 3rd subject</option>
+                <option type="ObjectId" value="5cc5f0a61c9d440000b7515b">History</option>
+                <option type="ObjectId" value="5cc7739d1c9d440000a6bf9e">Geography</option>
+                <option type="ObjectId" value="5cc778a61c9d440000a6bfa4">Philosophy</option>
+              </select>
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <select name="materia" class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Add the 4th subject</option>
+                <option type="ObjectId" value="5cc764cc1c9d440000a6bf9a">Biology</option>
+                <option type="ObjectId" value="5cc7740a1c9d440000a6bf9f">Phisics</option>
+                <option type="ObjectId" value="5cc779ba1c9d440000a6bfa5">Chemistry</option>
+              </select>
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <select name="materia" class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Add the 5th subject</option>
+                <option type="ObjectId" value="5cc7702b1c9d440000a6bf9b">Technology 1</option>
+                <option type="ObjectId" value="5cc774691c9d440000a6bfa0">Technology 2</option>
+                <option type="ObjectId" value="5cc779f71c9d440000a6bfa6">Technology 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <select name="materia" class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Add the 6th subject</option>
+                <option type="ObjectId" value="5cc771c31c9d440000a6bf9c">Arts 1</option>
+                <option type="ObjectId" value="5cc775011c9d440000a6bfa1">Arts 2</option>
+                <option type="ObjectId" value="5cc77a201c9d440000a6bfa7">Arts 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <select name="materia" class="uk-select uk-form-width-large">
+                <option value="" selected disabled>Add the 7th subject</option>
+                <option type="ObjectId" value="5cc7725d1c9d440000a6bf9d">English 1</option>
+                <option type="ObjectId" value="5cc775731c9d440000a6bfa2">English 2</option>
+                <option type="ObjectId" value="5cc77a681c9d440000a6bfa8">English 3</option>
+              </select>
             </div>
           </div>
         </div>
@@ -148,7 +223,9 @@
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
         {{else}}
+        {{#unless manager}}
         <li><a href="/profile">{{user.email}}</a></li>
+        {{/unless}}
         <li><a href="/logout">Logout</a></li>
         {{/unless}}
       </ul>
@@ -157,7 +234,7 @@
 
   {{{body}}}
 
-  <footer class="uk-tile-muted uk-h6-default uk-position-bottom">
+  <footer class="uk-tile-muted uk-h6-default uk-flex-bottom">
     <div class="uk-flex uk-flex-row uk-flex-around">
       <p class="uk-padding-small">Tonalá 10, Roma Norte, 06700, CDMX</p>
       <p>01 55 3039 1903</p>
@@ -166,12 +243,13 @@
   </footer>
 
   <!-- UIkit JS -->
+  <script src="/javascripts/script.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
   <script src="/javascripts/graph.js" charset="utf-8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit-icons.min.js"></script>
-  <script src="/javascripts/script.js"></script>
+
 </body>
 
 </html>

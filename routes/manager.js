@@ -2,69 +2,42 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const Group = require("../models/Group");
+const Materia = require("../models/Materia");
 const helpers = require("../helpers/function");
 
 router.get("/", helpers.isAuth, helpers.checkRoles("MANAGER"), (req, res) => {
   const { user } = req;
+  let manager;
+  let canCreateUser;
   Group.find().then(groups => {
-    res.render("manager", { user, groups });
+    manager = true;
+    canCreateUser = true;
+    res.render("manager", { user, groups, manager, canCreateUser });
   });
 });
 
 router.get(
-  "/PRIMERO",
+  "/:tag",
   helpers.isAuth,
   helpers.checkRoles("MANAGER"),
   (req, res) => {
+    const tag = req.params.tag;
     const { user } = req;
-    let alumni = [];
-    User.getByGroupTag("PRIMERO").then(usrs => {
-      usrs = usrs.map(usr => {
-        alumni.push(usr);
-        return String(user.role) === String("MANAGER")
-          ? { ...usr._doc, canUpdate: true }
-          : usr;
+    Group.find({ tag: tag })
+      .populate({ path: "materia", populate: { path: "teacher" } })
+      .then(group => {
+        let materias = group[0].materia;
+        User.getByGroupTag(tag).then(usrs => {
+          let alumni = [];
+          usrs = usrs.map(usr => {
+            alumni.push(usr);
+            return String(user.role) === String("MANAGER")
+              ? { ...usr._doc, canUpdate: true }
+              : usr;
+          });
+          res.render("group", { user, alumni, materias, tag });
+        });
       });
-      res.render("group", { user, alumni });
-    });
-  }
-);
-
-router.get(
-  "/SEGUNDO",
-  helpers.isAuth,
-  helpers.checkRoles("MANAGER"),
-  (req, res) => {
-    const { user } = req;
-    let alumni = [];
-    User.getByGroupTag("SEGUNDO").then(usrs => {
-      usrs = usrs.map(usr => {
-        alumni.push(usr);
-        return String(user.role) === String("MANAGER")
-          ? { ...usr._doc, canUpdate: true }
-          : usr;
-      });
-      res.render("group", { user, alumni });
-    });
-  }
-);
-
-router.get(
-  "/TERCERO",
-  helpers.isAuth,
-  helpers.checkRoles("MANAGER"),
-  (req, res) => {
-    const { user } = req;
-    let alumni = [];
-    User.getByGroupTag("TERCERO").then(usrs => {
-      usrs = usrs.map(usr => {
-        alumni.push(usr);
-        return String(user.role) === String("MANAGER")
-          ? { ...usr._doc, canUpdate: true }
-          : usr;
-      });
-      res.render("group", { user, alumni });
-    });
   }
 );
 

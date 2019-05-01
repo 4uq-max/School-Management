@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const materiaSchema = new Schema(
@@ -34,20 +33,24 @@ const materiaSchema = new Schema(
       type: Schema.ObjectId,
       ref: "User"
     },
-    period: [
+    notes: [
       {
-        type: String,
-        enum: [
-          "agust-september",
-          "october-november",
-          "december-january",
-          "february-march",
-          "april-may",
-          "june-july"
-        ],
-        note: {
-          type: Number
-        }
+        periodo: {
+          type: String,
+          enum: [
+            "agust-september",
+            "october-november",
+            "december-january",
+            "february-march",
+            "april-may",
+            "june-july"
+          ]
+        },
+        note: [
+          {
+            type: Number
+          }
+        ]
       }
     ]
   },

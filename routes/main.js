@@ -8,25 +8,36 @@ const User = require("../models/User");
 
 router.get("/", helpers.isAuth, (req, res) => {
   const { user } = req;
-  let canCreateArticle;
   let canRate;
+  let manager;
+  if (String(user.role) === String("MANAGER")) {
+    canCreateArticle = true;
+    manager = true;
+  } else {
+    canCreateArticle = false;
+  }
+  if (String(user.role) === String("TEACHER")) {
+    canRate = true;
+    manager = true;
+  } else {
+    canRate = false;
+  }
   Article.find().then(articles => {
+    let idis = [];
     articles = articles.map(article => {
+      idis.push(article._id);
       return String(user.role) === String("MANAGER")
         ? { ...article._doc, canUpdate: true }
         : article;
     });
-    if (String(user.role) === String("MANAGER")) {
-      canCreateArticle = true;
-    } else {
-      canCreateArticle = false;
-    }
-    if (String(user.role) === String("TEACHER")) {
-      canRate = true;
-    } else {
-      canRate = false;
-    }
-    res.render("main", { user, articles, canCreateArticle, canRate });
+    res.render("main", {
+      user,
+      articles,
+      canCreateArticle,
+      canRate,
+      idis,
+      manager
+    });
   });
 });
 
@@ -48,9 +59,24 @@ router.post(
 );
 
 router.post("/:id/edit", (req, res) => {
-  const { id } = req.params;
-  const { ...article } = req.body;
-  Article.findByIdAndUpdate(id, { $set: { ...article } }).then(() => {
+  const { id: _id } = req.params;
+  console.log(id);
+  const titlee = req.body.titlee;
+  const picPath = req.file.url;
+  const description = req.body.description;
+  const picName = req.file.originalname;
+  const modal = { titlee, picPath, description, picName };
+
+  Article.findOneAndUpdate(
+    _id,
+    {
+      titlee,
+      picPath,
+      description,
+      picName
+    },
+    { $set: modal }
+  ).then(() => {
     res.redirect("/main");
   });
 });
