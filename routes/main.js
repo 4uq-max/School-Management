@@ -58,28 +58,23 @@ router.post(
   }
 );
 
-router.post("/:id/edit", (req, res) => {
-  const { id: _id } = req.params;
-  console.log(id);
-  const titlee = req.body.titlee;
-  const picPath = req.file.url;
-  const description = req.body.description;
-  const picName = req.file.originalname;
-  const modal = { titlee, picPath, description, picName };
-
-  Article.findOneAndUpdate(
-    _id,
-    {
-      titlee,
-      picPath,
-      description,
-      picName
-    },
-    { $set: modal }
-  ).then(() => {
-    res.redirect("/main");
-  });
-});
+router.post(
+  "/:id/edit",
+  helpers.isAuth,
+  uploadPostPicture.single("postPic"),
+  (req, res) => {
+    const titlee = req.body.titlee;
+    const picPath = req.file.url;
+    const description = req.body.description;
+    const picName = req.file.originalname;
+    Article.findOneAndUpdate(
+      { titlee, picPath, description, picName },
+      { $set: titlee, picPath, description, picName }
+    ).then(() => {
+      res.redirect("/main");
+    });
+  }
+);
 
 router.get("/:id/delete", (req, res) => {
   let { id } = req.params;

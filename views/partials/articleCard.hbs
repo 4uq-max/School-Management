@@ -15,3 +15,33 @@
     <p>{{this.description}}</p>
   </div>
 </div>
+<div id="new-notice" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-padding-large uk-background-muted" id="modal-styles">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <form action="/main/{{_id}}/edit" method="POST" enctype="multipart/form-data">
+      <h4 class="uk-modal-title uk-text-center">UPDATE NOTICE</h4>
+      <div class="uk-text-center">
+        <div class="uk-margin">
+          <div class="uk-inline">
+            <span class="uk-form-icon" uk-icon="icon: tag"></span>
+            <input name="titlee" class="uk-input uk-form-width-large" type="text"
+              placeholder="Enter a title for this notice" value="{{titlee}}">
+          </div>
+        </div>
+        <div class="uk-margin">
+          <div class="uk-inline">
+            <textarea class="uk-textarea uk-form-width-large" name="description" id="" cols="30" rows="3"
+              placeholder="Description">{{description}}</textarea>
+          </div>
+        </div>
+        <div class="js-upload" uk-form-custom>
+          <input type="file" name="postPic">
+          <button class="uk-button uk-button-default" type="button" tabindex="-1">Select image</button>
+        </div>
+      </div>
+      <p class="uk-text-right">
+        <button class="uk-button" id="button" type="submit">Save</button>
+      </p>
+    </form>
+  </div>
+</div>

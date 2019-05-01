@@ -14,14 +14,11 @@
 
 <body>
 
-  <div id="new-notice" uk-modal>
+  <div id="new-noticee" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-padding-large uk-background-muted" id="modal-styles">
       <button class="uk-modal-close-default" type="button" uk-close></button>
-      <form {{#if _id}} action="/main/{{_id}}/edit" {{else}} action="/main/newNotice" {{/if}} method="POST"
-        enctype="multipart/form-data">
-        {{#if _id}} <h4 class="uk-modal-title uk-text-center">UPDATE NOTICE</h4>
-        {{else}} <h4 class="uk-modal-title uk-text-center">CREATE NOTICE {{_id}}</h4>
-        {{/if}}
+      <form action="/main/newNotice" method="POST" enctype="multipart/form-data">
+        <h4 class="uk-modal-title uk-text-center">CREATE NOTICE</h4>
         <div class="uk-text-center">
           <div class="uk-margin">
             <div class="uk-inline">
@@ -199,7 +196,7 @@
     <div class="uk-navbar-left">
       <ul class="uk-navbar-nav">
         {{#if canCreateArticle}}
-        <li><a href="" uk-toggle="target: #new-notice">New notice</a></li>
+        <li><a href="" uk-toggle="target: #new-noticee">New notice</a></li>
         <li><a href="/manager">Comunity</a></li>
         {{/if}}
         {{#if canCreateUser}}
