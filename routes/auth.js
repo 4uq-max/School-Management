@@ -28,7 +28,7 @@ router.post("/register", (req, res) => {
     .then(user => {
       const { email } = user;
       const options = {
-        filename: "verify",
+        //filename: "verify",
         email,
         subject: "Welcome to the School Management",
         message:

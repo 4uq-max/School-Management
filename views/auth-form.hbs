@@ -8,8 +8,7 @@
         Register
         {{/if}}
       </h2>
-      <form {{#if action}} action="/login" {{else}} action="/register" {{/if}} class="uk-text-center"
-        method="POST">
+      <form {{#if action}} action="/login" {{else}} action="/register" {{/if}} class="uk-text-center" method="POST">
 
         {{#unless action}}
         <div class="uk-margin">
@@ -47,6 +46,12 @@
           Register
           {{/if}}
         </button>
+
+        {{#if action}}
+        <div class="uk-margin-small-top">
+          <a href="/auth/resetpassword">Forgot password?</a>
+        </div>
+        {{/if}}
 
       </form>
     </div>

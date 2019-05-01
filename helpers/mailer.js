@@ -31,7 +31,7 @@ exports.send = options => {
     from: " Direccion :<noreply@school-management.com>",
     to: options.email,
     subject: options.subject,
-    text: options.message,
+    message: options.message,
     html
   };
   return transport.sendMail(mailOptions);
