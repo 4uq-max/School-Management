@@ -4,11 +4,11 @@
   </div>
   <div class="uk-card-body uk-height-small uk-padding-small">
     <div class="uk-flex-inline">
-      <h4 class="uk-card-title">{{this.title}}</h4>
+      <h4 class="uk-card-title" id="coral">{{this.titlee}}</h4>
       <div class="uk-align-right">
         {{#if this.canUpdate}}
-          <a href="/main/{{this._id}}/edit" uk-icon="icon: pencil"></a>
-          <a href="/main/{{this._id}}/delete" uk-icon="icon: trash"></a>
+        <a href="" uk-toggle="target: #new-notice" uk-icon=" icon: file-edit" uk-tooltip="Edit"></a>
+        <a href="/main/{{this._id}}/delete" uk-icon="icon: trash" uk-tooltip="Delete"></a>
         {{/if}}
       </div>
     </div>

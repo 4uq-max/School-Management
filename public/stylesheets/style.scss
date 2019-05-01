@@ -8,5 +8,46 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+#modal-styles {
+  border-radius: 20px;
+}
+
+#button {
+  background-color: lightcoral;
+  color: white;
+}
+
+#coral {
+  color: lightcoral;
+}
+
+.col,
+#chart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80vw;
+  padding: 15px 150px;
+}
+#text {
+  font-size: 13px;
+  margin: 50px;
+}
+
+#card-chart {
+  width: 90vw;
+  height: 75vh;
+  padding: 2vw;
+  border: solid 3px lightcoral;
+  border-radius: 20px;
+  margin: 2vw 3vw;
+}
+
+#border {
+  border: solid 5px lightcoral;
+  padding: 3vw 2vh;
+  margin: 1vw;
 }

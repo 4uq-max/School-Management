@@ -1,15 +1,38 @@
-<h1>vista del manager</h1>
-<h2>grupos, gráficas, etc</h2>
-<ul>
-  {{#each groups as |usr|}}
-  <li>
-    {{usr.title}} <br> {{usr.alumni}} <br>
-  {{#if usr.canUpdate}}
-    <div>
-      <a href="/manager/{{usr._id}}/edit" uk-icon="icon: pencil"></a>
-      <a href="/manager/{{usr._id}}/delete" uk-icon="icon: trash"></a>
-    </div> <br>
-    {{/if}}
-  </li><br>
-  {{/each}}
-</ul>
+<div class="uk-flex uk-flex-column">
+  <div id="card-chart">
+    <h2 class="uk-heading-line uk-text-center"><a id="coral" href="/manager/PRIMERO">PRIMERO</a> </h2>
+    <div class="col-md-4 py-1">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="barChart1" height="120"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="card-chart">
+    <h2 class="uk-heading-line uk-text-center"><a id="coral" href="/manager/SEGUNDO">SEGUNDO</a> </h2>
+    <div class="col-md-4 py-1">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="barChart2" height="120"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="card-chart">
+    <h2 class="uk-heading-line uk-text-center"><a id="coral" href="/manager/TERCERO">TERCERO</a> </h2>
+    <div class="col-md-4 py-1">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="barChart3" height="120"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script src="/javascripts/graph.js" charset="utf-8"></script>
+<script>
+  var color = Chart.helpers.color;
+</script>

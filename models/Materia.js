@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const materiaSchema = new Schema(
@@ -7,38 +6,53 @@ const materiaSchema = new Schema(
     materia: {
       type: String,
       enum: [
-        "Spanish",
-        "Math",
+        "Spanish 1",
+        "Spanish 2",
+        "Spanish 3",
+        "Maths 1",
+        "Maths 2",
+        "Maths 3",
         "History",
         "Geography",
         "Philosophy",
         "Biology",
         "Phisics",
         "Chemistry",
-        "Technology",
-        "Arts",
-        "English",
-        "Physical Education"
+        "Technology 1",
+        "Technology 2",
+        "Technology 3",
+        "Arts 1",
+        "Arts 2",
+        "Arts 3",
+        "English 1",
+        "English 2",
+        "English 3"
       ]
     },
     teacher: {
-      type: Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "User"
     },
-    note: {
-      type: Number,
-      period: {
-        type: String,
-        enum: [
-          "agust-september",
-          "october-november",
-          "december-january",
-          "february-march",
-          "april-may",
-          "june-july"
+    notes: [
+      {
+        periodo: {
+          type: String,
+          enum: [
+            "agust-september",
+            "october-november",
+            "december-january",
+            "february-march",
+            "april-may",
+            "june-july"
+          ]
+        },
+        note: [
+          {
+            type: Number
+          }
         ]
       }
-    }
+    ]
   },
   { timestamps: true }
 );

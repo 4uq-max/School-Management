@@ -4,7 +4,7 @@ const User = require("../models/User");
 //const uploader = require("../helpers/multer");
 const helpers = require("../helpers/function");
 
-router.get("/", helpers.isAuth, (req, res) => {
+router.get("/", helpers.isAuth, helpers.checkRoles("STUDENT"), (req, res) => {
   const { user } = req;
   res.render("profile", { user });
 });

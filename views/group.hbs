@@ -1,0 +1,76 @@
+<div id="border">
+  <h2 class="uk-text-center" id="coral">{{this.tag}}</h2>
+  <h5 class="uk-text-center">{{#each materias as |materia|}}
+    | {{materia.materia}}: {{materia.teacher.name}} |
+    {{/each}}</h5>
+  <div class="uk-overflow-auto" id="text">
+    <table class="uk-table uk-table-hover uk-table-divider uk-table-middle uk-text-center">
+      <thead>
+        <tr>
+          <td class="uk-width-small">PERIOD / STUDENT</td>
+          {{#each alumni as |al|}}
+          <td>{{al.name}}</td>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each materias.[0].notes as |mat|}}
+        <tr>
+          <td>SPANISH <br> {{mat.periodo}}</td>
+          {{#each mat.note as |calif|}}
+          <td>{{calif}}</td>
+          {{/each}}
+        </tr>
+        {{/each}}
+        {{#each materias.[1].notes as |mat|}}
+        <tr>
+          <td>MATHS <br>{{mat.periodo}}</td>
+          {{#each mat.note as |calif|}}
+          <td>{{calif}}</td>
+          {{/each}}
+        </tr>
+        {{/each}}
+        {{#each materias.[2].notes as |mat|}}
+        <tr>
+          <td>WORD <br>{{mat.periodo}}</td>
+          {{#each mat.note as |calif|}}
+          <td>{{calif}}</td>
+          {{/each}}
+        </tr>
+        {{/each}}
+        {{#each materias.[3].notes as |mat|}}
+        <tr>
+          <td>SCIENCE <br>{{mat.periodo}}</td>
+          {{#each mat.note as |calif|}}
+          <td>{{calif}}</td>
+          {{/each}}
+        </tr>
+        {{/each}}
+        {{#each materias.[4].notes as |mat|}}
+        <tr>
+          <td>TECHNOLOGY <br>{{mat.periodo}}</td>
+          {{#each mat.note as |calif|}}
+          <td>{{calif}}</td>
+          {{/each}}
+        </tr>
+        {{/each}}
+        {{#each materias.[5].notes as |mat|}}
+        <tr>
+          <td>ARTS <br>{{mat.periodo}}</td>
+          {{#each mat.note as |calif|}}
+          <td>{{calif}}</td>
+          {{/each}}
+        </tr>
+        {{/each}}
+        {{#each materias.[6].notes as |mat|}}
+        <tr>
+          <td>ENGLISH <br>{{mat.periodo}}</td>
+          {{#each mat.note as |calif|}}
+          <td>{{calif}}</td>
+          {{/each}}
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
