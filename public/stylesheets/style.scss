@@ -34,6 +34,7 @@ a {
   width: 80vw;
   padding: 15px 150px;
 }
+
 #text {
   font-size: 12px;
   margin: 50px;
@@ -48,6 +49,17 @@ a {
   margin: 2vw 3vw;
 }
 
+#chart2 {
+  width: 20vw;
+  height: 45vh;
+  padding: 2vw;
+  border: solid 3px lightcoral;
+  border-radius: 20px;
+  margin-top: 3vw;
+  margin-left: 2vw;
+  margin-bottom: 3vw;
+}
+
 #border {
   border: solid 5px lightcoral;
   padding: 3vw 2vh;
@@ -58,8 +70,13 @@ a {
   margin: 20px;
 }
 
-footer{
+footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+#img {
+  width: 15vw;
+  height: 15vw;
 }

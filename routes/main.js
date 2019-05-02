@@ -9,18 +9,22 @@ const User = require("../models/User");
 router.get("/", helpers.isAuth, (req, res) => {
   const { user } = req;
   let canRate;
-  let manager;
+  let canCreateArticle;
+  let alumn;
   if (String(user.role) === String("MANAGER")) {
     canCreateArticle = true;
-    manager = true;
   } else {
     canCreateArticle = false;
   }
   if (String(user.role) === String("TEACHER")) {
     canRate = true;
-    manager = true;
   } else {
     canRate = false;
+  }
+  if (String(user.role) === String("STUDENT")) {
+    alumn = true;
+  } else {
+    alumn = false;
   }
   Article.find().then(articles => {
     let idis = [];
@@ -36,7 +40,7 @@ router.get("/", helpers.isAuth, (req, res) => {
       canCreateArticle,
       canRate,
       idis,
-      manager
+      alumn
     });
   });
 });
@@ -84,11 +88,16 @@ router.post(
   }
 );
 
-router.get("/:id/delete", (req, res) => {
-  let { id } = req.params;
-  Article.findByIdAndDelete(id).then(() => {
-    res.redirect("/main");
-  });
-});
+router.get(
+  "/:id/delete",
+  helpers.isAuth,
+  helpers.checkRoles("MANAGER"),
+  (req, res) => {
+    let { id } = req.params;
+    Article.findByIdAndDelete(id).then(() => {
+      res.redirect("/main");
+    });
+  }
+);
 
 module.exports = router;

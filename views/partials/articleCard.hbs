@@ -6,11 +6,14 @@
     <div class="uk-flex uk-flex-around">
       <h4 class="uk-card-title" id="coral">{{this.titlee}}</h4>
       {{#if this.canUpdate}}
+      <a class="uk-icon-button" uk-icon="icon: file-edit" uk-tooltip="Edit" uk-icon="icon: file-edit"
+        uk-toggle="target: #edit"></a>
       <a class="uk-icon-button" uk-icon="icon: trash" uk-tooltip="Delete" href="/main/{{this._id}}/delete"></a>
       {{/if}}
     </div>
+    <p>{{this.description}}</p>
     {{#if this.canUpdate}}
-    <form action="/main/{{this._id}}/edit" method="POST" enctype="multipart/form-data">
+    <form id="edit" action="/main/{{this._id}}/edit" method="POST" enctype="multipart/form-data" hidden>
       <div class="uk-margin">
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: tag"></span>
@@ -24,15 +27,14 @@
             placeholder="Description">{{description}}</textarea>
         </div>
       </div>
-      <div class="js-upload uk-flex uk-flex-row uk-flex-around" uk-form-custom>
-        <input type="file" name="postPic">
-        <button class="uk-button uk-button-default uk-button-small" type="button" tabindex="-1">Select image</button>
+      <div class=" uk-flex uk-flex-row uk-flex-around">
+        <div class="js-upload" uk-form-custom>
+          <input type="file" name="postPic">
+          <button class="uk-button uk-button-default uk-button-small" type="button" tabindex="-1">Select image</button>
+        </div>
         <button class="uk-button uk-button-small" id="button" type="submit">Save</button>
       </div>
-
     </form>
-    {{else}}
-    <p>{{this.description}}</p>
     {{/if}}
   </div>
 </div>

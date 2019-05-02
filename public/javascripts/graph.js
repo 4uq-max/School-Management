@@ -193,3 +193,67 @@ if (barChart3) {
     }
   });
 }
+
+var barChartData4 = {
+  labels: [
+    "agust-september",
+    "october-november",
+    "december-january",
+    "february-march",
+    "april-may",
+    "june-july"
+  ],
+  datasets: [
+    {
+      label: "Spanish 1",
+      backgroundColor: color(window.chartColors.red).rgbString(),
+      data: [8.7, 8.6, 9, 8.6, 8.8, 8.9]
+    }
+  ]
+};
+
+var barChart4 = document.getElementById("barChart4");
+if (barChart4) {
+  new Chart(barChart4, {
+    type: "bar",
+    data: barChartData4,
+    options: {
+      responsive: true,
+      legend: {
+        position: "bottom"
+      }
+    }
+  });
+}
+
+var barChartData5 = {
+  labels: [
+    "agust-september",
+    "october-november",
+    "december-january",
+    "february-march",
+    "april-may",
+    "june-july"
+  ],
+  datasets: [
+    {
+      label: "Phisics",
+      backgroundColor: color(window.chartColors.yellow).rgbString(),
+      data: [8.4, 8.6, 9, 8.8, 8.9, 8.9]
+    }
+  ]
+};
+
+var barChart5 = document.getElementById("barChart5");
+if (barChart5) {
+  new Chart(barChart5, {
+    type: "bar",
+    data: barChartData5,
+    options: {
+      responsive: true,
+      legend: {
+        position: "bottom"
+      }
+    }
+  });
+}

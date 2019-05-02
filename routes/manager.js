@@ -7,12 +7,11 @@ const helpers = require("../helpers/function");
 
 router.get("/", helpers.isAuth, helpers.checkRoles("MANAGER"), (req, res) => {
   const { user } = req;
-  let manager;
   let canCreateUser;
   Group.find().then(groups => {
     manager = true;
     canCreateUser = true;
-    res.render("manager", { user, groups, manager, canCreateUser });
+    res.render("manager", { user, groups, canCreateUser });
   });
 });
 
@@ -21,11 +20,14 @@ router.get(
   helpers.isAuth,
   helpers.checkRoles("MANAGER"),
   (req, res) => {
+    let canCreateUser;
     const tag = req.params.tag;
     const { user } = req;
     Group.find({ tag: tag })
       .populate({ path: "materia", populate: { path: "teacher" } })
       .then(group => {
+        canCreateUser = true;
+        manager: true;
         let materias = group[0].materia;
         User.getByGroupTag(tag).then(usrs => {
           let alumni = [];
@@ -35,7 +37,13 @@ router.get(
               ? { ...usr._doc, canUpdate: true }
               : usr;
           });
-          res.render("group", { user, alumni, materias, tag });
+          res.render("group", {
+            user,
+            alumni,
+            materias,
+            tag,
+            canCreateUser
+          });
         });
       });
   }

@@ -4,10 +4,11 @@ const User = require("../models/User");
 const Group = require("../models/Group");
 const Materia = require("../models/Materia");
 const helpers = require("../helpers/function");
+const upload = require("../helpers/multer.js");
+const uploadProfilePicture = upload.uploadProfilePicture;
 
 router.get("/", helpers.isAuth, helpers.checkRoles("TEACHER"), (req, res) => {
   const { user } = req;
-  const manager = true;
   Group.find()
     .populate({ path: "materia", populate: { path: "teacher" } })
     .then(groups => {
@@ -37,70 +38,45 @@ router.get("/", helpers.isAuth, helpers.checkRoles("TEACHER"), (req, res) => {
               ? { ...usr._doc, canUpdate: true }
               : usr;
           });
-          res.render("teacher", { user, alumni1, alumni2, materias, manager });
+          res.render("teacher", { user, alumni1, alumni2, materias });
         });
       });
     });
 });
 
-/*router.get("/", helpers.isAuth, (req, res) => {
-  const { user } = req;
-  Materia.find({ teacher: user._id }).then(materias => {
-    /*User.getByGroupTag(tag).then(usrs => {
-      let alumni = [];
-      usrs = usrs.map(usr => {
-        alumni.push(usr);
-        return String(user.role) === String("MANAGER")
-          ? { ...usr._doc, canUpdate: true }
-          : usr;
+router.post(
+  "/:id/editAlumn",
+  helpers.isAuth,
+  helpers.checkRoles("TEACHER"),
+  (req, res) => {
+    const { id: _id } = req.params;
+    const user = req.body;
+    User.findOneAndUpdate({ _id }, { $set: user })
+      .then(() => {
+        res.redirect("/teacher");
+      })
+      .catch(err => {
+        res.render("main", { err });
       });
-    });
-    Group.find()
-      .populate("materia")
-      .then(groups => {
-        console.log(groups);
-        res.render("teacher", { user, groups, materias });
+  }
+);
+
+router.post(
+  "/:id/edit",
+  helpers.isAuth,
+  uploadProfilePicture.single("postPic"),
+  (req, res) => {
+    const { id: _id } = req.params;
+    const image = req.file ? req.file.url : undefined;
+    const user = image ? { ...req.body, image } : req.body;
+    User.findOneAndUpdate({ _id }, { $set: user })
+      .then(() => {
+        res.redirect("/teacher");
+      })
+      .catch(err => {
+        res.render("main", { err });
       });
-  });
-});*/
-
-/*router.get("/newUser", helpers.isAuth, helpers.checkRoles("MANAGER"), (req, res) => {
-  const { user } = req;
-  res.render("user-form", { user });
-});
-
-router.post("/newUser", (req, res) => {
-  User.create(req.body)
-    .then(() => {
-      res.redirect("/manager");
-    });
-});
-
-router.get('/:id/edit', (req, res) => {
-  let { id } = req.params;
-  User.findById(id)
-  .then(user => {
-    res.render('user-form', user);
-  });
-});
-
-router.post('/:id/edit', (req, res) => {
-  let { id } = req.params;
-  User.findByIdAndUpdate(id, {$set: {...req.body}})
-  .then(() => {
-    res.redirect('/manager');
-  })
-  .catch(err => {
-    console.log(err);
-  })
-});
-
-router.get('/:id/delete', (req, res) => {
-  let { id } = req.params;
-  User.findByIdAndDelete(id)
-  .then(() => {
-    res.redirect('/manager');
-  });
-});*/
+  }
+);
 
 module.exports = router;

@@ -220,9 +220,9 @@
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
         {{else}}
-        {{#unless manager}}
+        {{#if alumn}}
         <li><a href="/profile">{{user.email}}</a></li>
-        {{/unless}}
+        {{/if}}
         <li><a href="/logout">Logout</a></li>
         {{/unless}}
       </ul>
