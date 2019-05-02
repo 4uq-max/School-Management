@@ -3,7 +3,7 @@ const hbs = require("hbs");
 const fs = require("fs");
 
 const transport = nodemailer.createTransport({
-  service: "SendGrid",
+  service: "Gmail",
   auth: {
     user: process.env.SEND_USER,
     pass: process.env.SEND_PASS
@@ -28,7 +28,7 @@ const generateHTML = (filename, options) => {
 exports.send = options => {
   const html = generateHTML(options.filename, options);
   const mailOptions = {
-    from: " Direccion :<noreply@school-management.com>",
+    from: " School Management :<noreply@school-management.com>",
     to: options.email,
     subject: options.subject,
     message: options.message,

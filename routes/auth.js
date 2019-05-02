@@ -9,10 +9,6 @@ router.get("/login", (req, res) => {
   res.render("auth-form", { action: "Login" });
 });
 
-router.get("/register", (req, res) => {
-  res.render("auth-form");
-});
-
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -22,17 +18,40 @@ router.post(
   })
 );
 
+/*authRoutes.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: [
+      "https://www.googleapis.com/auth/plus.login",
+      "https://www.googleapis.com/auth/plus.profile.emails.read"
+    ]
+  })
+);
+
+authRoutes.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/",
+    successRedirect: "/private-page"
+  })
+);*/
+
+router.get("/register", (req, res) => {
+  res.render("auth-form");
+});
+
 router.post("/register", (req, res) => {
   const { password } = req.body;
+
   User.register(req.body, password)
     .then(user => {
       const { email } = user;
       const options = {
-        //filename: "verify",
+        filename: "verify",
         email,
         subject: "Welcome to the School Management",
         message:
-          "Welcome, please confirm your mail link: http://localhost:3000/login"
+          "Welcome, please confirm your mail link: http:/localhost:3000/login"
       };
 
       mailer.send(options);
@@ -48,11 +67,11 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-router.get("/resetpassword", (req, res) => {
+router.get("/mail/reset-pass", (req, res) => {
   res.render("reset/reset-email");
 });
 
-router.post("/resetpassword", (req, res, next) => {
+router.post("/mail/reset-pass", (req, res, next) => {
   const { email } = req.body;
   if (!email) return res.render("reset/reset-email", { err: "Email required" });
   const hash = crypto.randomBytes(20).toString("hex");
@@ -63,9 +82,9 @@ router.post("/resetpassword", (req, res, next) => {
         message:
           "We received a request to recover the password of your account, if it was not you, ignore this email",
         subject: "Reset password",
-        link: `${req.headers.origin}/auth/resetpassword/${user.hash}`
+        link: `${req.headers.origin}/auth/mail/reset-pass/${user.hash}`
       };
-      options.filename = "reset-password";
+      options.filename = "reset-pass";
       mailer
         .send(options)
         .then(() => {
@@ -78,11 +97,11 @@ router.post("/resetpassword", (req, res, next) => {
   );
 });
 
-router.get("/resetpassword/:token", (req, res) => {
+router.get("/mail/reset-pass/:token", (req, res) => {
   res.render("reset/reset-form");
 });
 
-router.post("/resetpassword/:token", (req, res) => {
+router.post("/mail/reset-pass/:token", (req, res) => {
   const { token: hash } = req.params;
   const { password } = req.body;
 
