@@ -1,47 +1,38 @@
 <div class="uk-card uk-card-default">
   <div class="uk-card-media-top">
-    <img src="{{this.picPath}}" alt="img" width="375">
+    <img src="{{this.picPath}}" alt="img" width="375" height="300">
   </div>
-  <div class="uk-card-body uk-height-small uk-padding-small">
-    <div class="uk-flex-inline">
+  <div class="uk-card-body uk-card-large uk-padding-remove uk-text-center" id="pad">
+    <div class="uk-flex uk-flex-around">
       <h4 class="uk-card-title" id="coral">{{this.titlee}}</h4>
-      <div class="uk-align-right">
-        {{#if this.canUpdate}}
-        <a href="" uk-toggle="target: #new-notice" uk-icon=" icon: file-edit" uk-tooltip="Edit"></a>
-        <a href="/main/{{this._id}}/delete" uk-icon="icon: trash" uk-tooltip="Delete"></a>
-        {{/if}}
-      </div>
+      {{#if this.canUpdate}}
+      <a class="uk-icon-button" uk-icon="icon: trash" uk-tooltip="Delete" href="/main/{{this._id}}/delete"></a>
+      {{/if}}
     </div>
-    <p>{{this.description}}</p>
-  </div>
-</div>
-<div id="new-notice" uk-modal>
-  <div class="uk-modal-dialog uk-modal-body uk-padding-large uk-background-muted" id="modal-styles">
-    <button class="uk-modal-close-default" type="button" uk-close></button>
-    <form action="/main/{{_id}}/edit" method="POST" enctype="multipart/form-data">
-      <h4 class="uk-modal-title uk-text-center">UPDATE NOTICE</h4>
-      <div class="uk-text-center">
-        <div class="uk-margin">
-          <div class="uk-inline">
-            <span class="uk-form-icon" uk-icon="icon: tag"></span>
-            <input name="titlee" class="uk-input uk-form-width-large" type="text"
-              placeholder="Enter a title for this notice" value="{{titlee}}">
-          </div>
-        </div>
-        <div class="uk-margin">
-          <div class="uk-inline">
-            <textarea class="uk-textarea uk-form-width-large" name="description" id="" cols="30" rows="3"
-              placeholder="Description">{{description}}</textarea>
-          </div>
-        </div>
-        <div class="js-upload" uk-form-custom>
-          <input type="file" name="postPic">
-          <button class="uk-button uk-button-default" type="button" tabindex="-1">Select image</button>
+    {{#if this.canUpdate}}
+    <form action="/main/{{this._id}}/edit" method="POST" enctype="multipart/form-data">
+      <div class="uk-margin">
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: tag"></span>
+          <input name="titlee" class="uk-input" type="text" placeholder="Enter a title for this notice"
+            value="{{titlee}}">
         </div>
       </div>
-      <p class="uk-text-right">
-        <button class="uk-button" id="button" type="submit">Save</button>
-      </p>
+      <div class="uk-margin">
+        <div class="uk-inline">
+          <textarea class="uk-textarea" name="description" id="" cols="30" rows="3"
+            placeholder="Description">{{description}}</textarea>
+        </div>
+      </div>
+      <div class="js-upload uk-flex uk-flex-row uk-flex-around" uk-form-custom>
+        <input type="file" name="postPic">
+        <button class="uk-button uk-button-default uk-button-small" type="button" tabindex="-1">Select image</button>
+        <button class="uk-button uk-button-small" id="button" type="submit">Save</button>
+      </div>
+
     </form>
+    {{else}}
+    <p>{{this.description}}</p>
+    {{/if}}
   </div>
 </div>

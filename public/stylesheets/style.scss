@@ -5,6 +5,8 @@
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  position: relative;
+  min-height: 100vh;
 }
 
 a {
@@ -50,4 +52,14 @@ a {
   border: solid 5px lightcoral;
   padding: 3vw 2vh;
   margin: 1vw;
+}
+
+#pad {
+  margin: 20px;
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

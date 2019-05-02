@@ -46,7 +46,8 @@ router.post(
   helpers.isAuth,
   helpers.checkRoles("MANAGER"),
   (req, res) => {
-    User.create(req.body).then(() => {
+    const { password } = req.body;
+    User.register(req.body, password).then(user => {
       res.redirect("/manager");
     });
   }

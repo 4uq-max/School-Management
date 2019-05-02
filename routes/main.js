@@ -61,18 +61,26 @@ router.post(
 router.post(
   "/:id/edit",
   helpers.isAuth,
+  helpers.checkRoles("MANAGER"),
   uploadPostPicture.single("postPic"),
   (req, res) => {
-    const titlee = req.body.titlee;
-    const picPath = req.file.url;
-    const description = req.body.description;
-    const picName = req.file.originalname;
-    Article.findOneAndUpdate(
-      { titlee, picPath, description, picName },
-      { $set: titlee, picPath, description, picName }
-    ).then(() => {
-      res.redirect("/main");
-    });
+    let { id } = req.params;
+    const { titlee, description } = req.body;
+    let updatedObj;
+    updatedObj = { titlee, description };
+    if (req.file) {
+      const { url: picPath, originalname: picName } = req.file;
+      updatedObj = { picPath, picName, ...updatedObj };
+    }
+    Article.findByIdAndUpdate(id, {
+      $set: updatedObj
+    })
+      .then(() => {
+        res.redirect("/main");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 );
 
