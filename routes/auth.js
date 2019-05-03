@@ -37,7 +37,7 @@ router.post("/register", (req, res) => {
       };
 
       mailer.send(options);
-      res.redirect("/login");
+      res.render("mail/confirm");
     })
     .catch(err => {
       res.render("auth-form", { err, action: "Register" });
