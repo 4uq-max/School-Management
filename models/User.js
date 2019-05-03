@@ -20,6 +20,10 @@ const userSchema = new Schema(
     image: {
       type: String
     },
+    hash: {
+      type: String,
+      unique: true
+    },
     role: {
       type: String,
       enum: ["MANAGER", "TEACHER", "PARENT", "STUDENT"],
@@ -32,7 +36,8 @@ const userSchema = new Schema(
     group: {
       type: Schema.ObjectId,
       ref: "Group"
-    }
+    },
+    googleID: String
   },
   { timestamps: true }
 );

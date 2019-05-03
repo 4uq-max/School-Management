@@ -47,7 +47,22 @@
           {{/if}}
         </button>
 
+        {{#if action}}
+        <div class="uk-margin-small-top">
+          <a href="/mail/reset-pass">Forgot password?</a>
+        </div>
+        {{/if}}
+
       </form>
+
+        {{#if action}}
+        <hr class="uk-divider-icon">
+
+        <div class="uk-flex uk-flex-center">
+          <a href="/auth/google"class="uk-button google uk-width-3-4"> <span uk-icon="icon: google"></span>
+        Sign In with Google</a>
+        </div>
+        {{/if}}
     </div>
   </div>
 </section>

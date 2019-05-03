@@ -11,6 +11,40 @@ const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("./helpers/passport");
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+
+
+//acceso con google//
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.CUSTOMERID,
+  clientSecret: process.env.CLIENTSECRET,
+  callbackURL: "/auth/google/callback"
+}, (accessToken, refreshToken, profile, done) => {
+  User.findOne({ googleID: profile.id })
+  .then(user => {
+    console.log(user)
+    if (err) {
+      return done(err);
+    }
+    if (user) {
+      return done(null, user);
+    }
+
+    const newUser = new User({
+      googleID: profile.id
+    });
+
+    newUser.save()
+    .then(user => {
+      done(null, newUser);
+    })
+  })
+  .catch(error => {
+    next(error)
+  })
+
+}));
 
 mongoose
   .connect(process.env.DB || "mongodb://localhost/scool-management", {
@@ -39,6 +73,7 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 
 app.use(
   session({
@@ -76,6 +111,7 @@ app.locals.title = "School Management";
 
 const index = require("./routes/index");
 const auth = require("./routes/auth");
+const googleSign = require("./routes/authRoutes")
 const main = require("./routes/main");
 const profile = require("./routes/profile");
 const manager = require("./routes/manager");
@@ -86,5 +122,7 @@ app.use("/main", main);
 app.use("/profile", profile);
 app.use("/manager", manager);
 app.use("/teacher", teacher);
+app.use("/routes/authRoutes", googleSign);
+
 
 module.exports = app;
