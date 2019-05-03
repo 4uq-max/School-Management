@@ -64,7 +64,7 @@ router.post("/mail/reset-pass", (req, res, next) => {
         message:
           "We received a request to recover the password of your account, if it was not you, ignore this email",
         subject: "Reset password",
-        link: `${req.headers.origin}/auth/mail/reset-pass/${user.hash}`
+        link: `${req.headers.origin}/mail/reset-pass/${user.hash}`
       };
       options.filename = "reset-pass";
       mailer
@@ -94,7 +94,7 @@ router.post("/mail/reset-pass/:token", (req, res) => {
     user.setPassword(password).then(user => {
       user.hash = undefined;
       user.save().then(() => {
-        res.redirect("/auth/login");
+        res.redirect("/login");
       });
     });
   });
