@@ -23,6 +23,7 @@ passport.use(new GoogleStrategy({
 }, (accessToken, refreshToken, profile, done) => {
   User.findOne({ googleID: profile.id })
   .then(user => {
+    console.log(user)
     if (err) {
       return done(err);
     }
@@ -110,6 +111,7 @@ app.locals.title = "School Management";
 
 const index = require("./routes/index");
 const auth = require("./routes/auth");
+const googleSign = require("./routes/authRoutes")
 const main = require("./routes/main");
 const profile = require("./routes/profile");
 const manager = require("./routes/manager");
@@ -120,5 +122,7 @@ app.use("/main", main);
 app.use("/profile", profile);
 app.use("/manager", manager);
 app.use("/teacher", teacher);
+app.use("/routes/authRoutes", googleSign);
+
 
 module.exports = app;

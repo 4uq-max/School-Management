@@ -18,24 +18,6 @@ router.post(
   })
 );
 
-/*authRoutes.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/plus.login",
-      "https://www.googleapis.com/auth/plus.profile.emails.read"
-    ]
-  })
-);
-
-authRoutes.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/",
-    successRedirect: "/private-page"
-  })
-);*/
-
 router.get("/register", (req, res) => {
   res.render("auth-form");
 });
@@ -51,7 +33,7 @@ router.post("/register", (req, res) => {
         email,
         subject: "Welcome to the School Management",
         message:
-          "Welcome, please confirm your mail link: http:/localhost:3000/login"
+          "Welcome, please confirm your mail link: https://ih-school-management.herokuapp.com/login"
       };
 
       mailer.send(options);
