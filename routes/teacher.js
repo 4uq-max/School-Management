@@ -45,25 +45,9 @@ router.get("/", helpers.isAuth, helpers.checkRoles("TEACHER"), (req, res) => {
 });
 
 router.post(
-  "/:id/editAlumn",
-  helpers.isAuth,
-  helpers.checkRoles("TEACHER"),
-  (req, res) => {
-    const { id: _id } = req.params;
-    const user = req.body;
-    User.findOneAndUpdate({ _id }, { $set: user })
-      .then(() => {
-        res.redirect("/teacher");
-      })
-      .catch(err => {
-        res.render("main", { err });
-      });
-  }
-);
-
-router.post(
   "/:id/edit",
   helpers.isAuth,
+  helpers.checkRoles("TEACHER"),
   uploadProfilePicture.single("postPic"),
   (req, res) => {
     const { id: _id } = req.params;
@@ -75,6 +59,23 @@ router.post(
       })
       .catch(err => {
         res.render("main", { err });
+      });
+  }
+);
+
+router.post(
+  "/comment",
+  helpers.isAuth,
+  helpers.checkRoles("TEACHER"),
+  (req, res) => {
+    const { id, comment } = req.body;
+    User.findByIdAndUpdate(id, { $push: { comment: comment } })
+      .then(() => {
+        res.redirect("/teacher");
+      })
+      .catch(err => {
+        res.redirect("/main");
+        console.log(err);
       });
   }
 );

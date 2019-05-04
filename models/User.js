@@ -37,7 +37,7 @@ const userSchema = new Schema(
       type: Schema.ObjectId,
       ref: "Group"
     },
-    googleID: String
+    comment: [String]
   },
   { timestamps: true }
 );

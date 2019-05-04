@@ -1,13 +1,13 @@
-<section class="uk-section uk-padding-remove-top" id="border" height="200%">
-    <div class="uk-flex uk-flex-row uk-flex-around">
+<section class="uk-section uk-padding-remove-top" id="border">
+    <div class=" uk-flex uk-flex-row uk-flex-around">
         <div class="uk-flex-inline uk-margin-medium-top">
             {{#if user.image}}
-            <img id="img" class="uk-border-circle" src="{{user.image}}" alt="{{user.name}}">
+            <img id="img2" class="uk-border-circle" src="{{user.image}}" alt="{{user.name}}">
             {{else}}
-            <img id="img" src="https://static.thenounproject.com/png/1095867-200.png" alt="profile-image">
+            <img id="img2" src="https://static.thenounproject.com/png/1095867-200.png" alt="profile-image">
             {{/if}}
             <div class="uk-margin-large-top uk-margin-medium-left">
-                <div class="uk-flex uk-flex-around">
+                <div class="uk-flex uk-flex-around uk-width-medium">
                     <h2 id="coral">{{user.name}}</h2>
                     <a class="uk-icon-button" uk-tooltip="Edit profile" uk-icon="icon: file-edit"
                         uk-toggle="target: #edit-profile"></a>
@@ -44,102 +44,117 @@
 
         </div>
         <div class="uk-text-center uk-margin-large-top">
-            <form action="Calificaciones" method="POST">
+            <form action="/teacher/comment" method="POST">
                 <div class="uk-text-center">
                     <div class="uk-margin">
-                        <div class="uk-inline">
-                            <span class="uk-form-icon" uk-icon="icon:user"></span>
-                            <input name="name" class="uk-input uk-form-width-large" type="text"
-                                placeholder="Student's name" value="{{name}}">
-                        </div>
+                        <select name="id" class="uk-select">
+                            <option value="" selected disabled>Student's name</option>
+                            {{#each alumni1 as |al1|}}
+                            <option type="ObjectId" value="{{al1._id}}">{{al1.name}}</option>
+                            {{/each}}
+                            {{#each alumni2 as |al2|}}
+                            <option type="ObjectId" value="{{al2._id}}">{{al2.name}}</option>
+                            {{/each}}
+                        </select>
                     </div>
                     <div class="uk-margin">
                         <div class="uk-inline">
                             <textarea class="uk-textarea uk-form-width-large" name="comment" id="" cols="30" rows="3"
-                                placeholder="Comment">{{comment}}</textarea>
+                                placeholder="Enter a comment">{{user.name}} comments: </textarea>
                         </div>
                     </div>
                     <div class="uk-margin">
                         <p class="uk-text-right">
-                            <button class="uk-button" id="button" type="submit">Save</button>
+                            <button class="uk-button" id="button" type="submit">Comment</button>
                         </p>
                     </div>
-                    <div>
-
-                    </div>
-
                 </div>
             </form>
         </div>
     </div>
-    <div class="uk-flex-inline">
-        <div class=" uk-overflow-auto uk-width-1-2 uk-box-shadow-small uk-padding-small" id="text">
-            <table class="uk-table uk-table-hover uk-table-divider uk-table-middle uk-text-center">
-                <thead>
-                    <tr>
-                        <td class="uk-width-small">PERIOD / STUDENT</td>
-                        {{#each alumni1 as |al1|}}
-                        <td>{{al1.name}}</td>
+    <form action="">
+        <div class="uk-flex-inline" id="cien">
+
+            <div class="uk-margin-large-left uk-overflow-auto uk-width-1-2 uk-box-shadow-small uk-padding-small"
+                id="text">
+
+                <table class="uk-table uk-table-hover uk-table-divider uk-table-middle uk-text-center">
+                    <thead>
+                        <tr>
+                            <td class="uk-width-small">PERIOD / STUDENT</td>
+                            {{#each alumni1 as |al1|}}
+                            <td>{{al1.name}}</td>
+                            {{/each}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each materias.[0].notes as |mat|}}
+                        <tr>
+                            <td>{{mat.periodo}}</td>
+                            {{#each mat.note as |calif|}}
+                            <td><input class="uk-input uk-form-width-xsmall uk-text-center" type="text"
+                                    value="{{calif}}">
+                            </td>
+                            {{/each}}
+                        </tr>
                         {{/each}}
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each materias.[0].notes as |mat|}}
-                    <tr>
-                        <td>{{mat.periodo}}</td>
-                        {{#each mat.note as |calif|}}
-                        <td>{{calif}}</td>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <td class="uk-width-small">PERIOD / STUDENT</td>
+                            {{#each alumni2 as |al2|}}
+                            <td>{{al2.name}}</td>
+                            {{/each}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each materias.[1].notes as |mat|}}
+                        <tr>
+                            <td>{{mat.periodo}}</td>
+                            {{#each mat.note as |calif|}}
+                            <td><input class="uk-input uk-form-width-xsmall uk-text-center" type="text"
+                                    value="{{calif}}">
+                            </td>
+                            {{/each}}
+                        </tr>
                         {{/each}}
-                    </tr>
-                    {{/each}}
-                </tbody>
-                <thead>
-                    <tr>
-                        <td class="uk-width-small">PERIOD / STUDENT</td>
-                        {{#each alumni2 as |al2|}}
-                        <td>{{al2.name}}</td>
-                        {{/each}}
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each materias.[1].notes as |mat|}}
-                    <tr>
-                        <td>{{mat.periodo}}</td>
-                        {{#each mat.note as |calif|}}
-                        <td>{{calif}}</td>
-                        {{/each}}
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-        <div class="uk-width-1-4">
-            <div id="chart2">
-                <h2 class="uk-heading-line uk-text-center"><a id="coral" href="/manager/PRIMERO">SPANISH 1</a>
-                </h2>
-                <div class="col-md-4 py-1">
-                    <div class="card">
-                        <div class="card-body">
-                            <canvas id="barChart4" height="300"></canvas>
+                    </tbody>
+                </table>
+            </div>
+            <div class="uk-margin-medium-top uk-width-1-4">
+                <div id="chart2">
+                    <h2 class="uk-heading-line uk-text-center"><a id="coral" href="/manager/PRIMERO">SPANISH 1</a>
+                    </h2>
+                    <div class="col-md-4 py-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="barChart4" height="300"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="chart2">
-                <h2 class="uk-heading-line uk-text-center"><a id="coral" href="/manager/SEGUNDO">PHISICS</a> </h2>
-                <div class="col-md-4 py-1">
-                    <div class="card">
-                        <div class="card-body">
-                            <canvas id="barChart5" height="300"></canvas>
+                <div id="chart2">
+                    <h2 class="uk-heading-line uk-text-center"><a id="coral" href="/manager/SEGUNDO">PHISICS</a> </h2>
+                    <div class="col-md-4 py-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="barChart5" height="300"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+                <script src="/javascripts/graph.js" charset="utf-8"></script>
+                <script>
+                    var color = Chart.helpers.color;
+                </script>
+                <div class="uk-margin ">
+                    <p class="uk-text-right  uk-margin-medium-bottom">
+                        <button class="uk-button" id="button" type="submit">Save dashboard</button>
+                    </p>
+                </div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-            <script src="/javascripts/graph.js" charset="utf-8"></script>
-            <script>
-                var color = Chart.helpers.color;
-            </script>
+
         </div>
-    </div>
+    </form>
 </section>

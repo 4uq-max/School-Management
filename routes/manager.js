@@ -61,27 +61,6 @@ router.post(
   }
 );
 
-router.get("/:id/editU", (req, res) => {
-  let { id } = req.params;
-  User.findById(id).then(user => {
-    res.render("user-form", user);
-  });
-});
-
-router.post("/:id/editU", (req, res) => {
-  let { id } = req.params;
-  User.findByIdAndUpdate(id, { $set: { ...req.body } }).then(() => {
-    res.redirect("/manager");
-  });
-});
-
-router.get("/:id/deleteU", (req, res) => {
-  let { id } = req.params;
-  User.findByIdAndDelete(id).then(() => {
-    res.redirect("/manager");
-  });
-});
-
 router.post(
   "/newGroup",
   helpers.isAuth,
@@ -92,26 +71,5 @@ router.post(
     });
   }
 );
-
-router.get("/:id/editG", (req, res) => {
-  let { id } = req.params;
-  Group.findById(id).then(user => {
-    res.render("group-form", user);
-  });
-});
-
-router.post("/:id/editG", (req, res) => {
-  let { id } = req.params;
-  Group.findByIdAndUpdate(id, { $set: { ...req.body } }).then(() => {
-    res.redirect("/manager");
-  });
-});
-
-router.get("/:id/deleteG", (req, res) => {
-  let { id } = req.params;
-  Group.findByIdAndDelete(id).then(() => {
-    res.redirect("/manager");
-  });
-});
 
 module.exports = router;
